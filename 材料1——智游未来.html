@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智游未来 | 智能旅游套餐推荐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(rgba(0, 51, 102, 0.9), rgba(0, 51, 102, 0.8));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80') center/cover;
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav a {
+            color: #003366;
+            text-decoration: none;
+            margin: 0 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ff6b6b;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            color: white;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .package-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 60px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            margin: 40px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .package {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 350px;
+        }
+
+        .package:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .package-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .package-content {
+            padding: 25px;
+        }
+
+        .package h2 {
+            color: #003366;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .package p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .package-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 15px;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .package-features li {
+            padding: 5px 0;
+            color: #555;
+        }
+
+        .package-features li::before {
+            content: '✓ ';
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e8e);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .contact-section {
+            background: white;
+            padding: 60px 20px;
+            margin: 40px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contact-section h2 {
+            text-align: center;
+            color: #003366;
+            margin-bottom: 40px;
+            font-size: 2.2rem;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #003366;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        footer {
+            background: linear-gradient(rgba(0, 51, 102, 0.9), rgba(0, 51, 102, 0.8));
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.2rem;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            nav a {
+                margin: 0 15px;
+                font-size: 1rem;
+            }
+            
+            .package {
+                width: 100%;
+                max-width: 400px;
+            }
+            
+            .package-container {
+                margin: 20px 10px;
+                padding: 30px 15px;
+            }
+            
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌴 智游未来 · 智能旅游</h1>
+            <p>用科技重新定义旅行体验 | AI赋能，旅行更智能</p>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <a href="#home">首页</a>
+            <a href="#packages">旅行套餐</a>
+            <a href="#about">关于我们</a>
+            <a href="#contact">联系我们</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h2>探索世界，智能相伴</h2>
+            <p>AI定制行程 | 智能导游 | 沉浸式体验 | 无忧旅行</p>
+        </div>
+    </section>
+
+    <section class="package-container" id="packages">
+        <!-- 套餐1：马尔代夫智能海岛游 -->
+        <div class="package">
+            <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" 
+                 alt="马尔代夫智能海岛游" class="package-image">
+            <div class="package-content">
+                <h2>🏝️ 马尔代夫智能海岛游</h2>
+                <p>体验AI定制的奢华海岛假期，无人机航拍、智能浮潜指导、私人管家服务</p>
+                <ul class="package-features">
+                    <li>AI行程规划与实时优化</li>
+                    <li>无人机高清航拍服务</li>
+                    <li>智能浮潜装备与指导</li>
+                    <li>24小时AI管家服务</li>
+                    <li>私人沙滩晚宴定制</li>
+                </ul>
+                <div class="package-price">¥8,999 起</div>
+                <a href="#book" class="btn">立即预订</a>
+            </div>
+        </div>
+
+        <!-- 套餐2：日本智慧文化行 -->
+        <div class="package">
+            <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" 
+                 alt="日本智慧文化行" class="package-image">
+            <div class="package-content">
+                <h2>🏯 日本智慧文化行</h2>
+                <p>穿越古今的智能文化之旅，AR导览历史遗迹，AI翻译，传统工艺智能体验</p>
+                <ul class="package-features">
+                    <li>AR历史场景重现</li>
+                    <li>实时AI语音翻译</li>
+                    <li>智能文化讲解</li>
+                    <li>传统工艺VR体验</li>
+                    <li>和服智能搭配推荐</li>
+                </ul>
+                <div class="package-price">¥6,888 起</div>
+                <a href="#book" class="btn">立即预订</a>
+            </div>
+        </div>
+
+        <!-- 套餐3：瑞士阿尔卑斯智能探险 -->
+        <div class="package">
+            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" 
+                 alt="瑞士阿尔卑斯智能探险" class="package-image">
+            <div class="package-content">
+                <h2>⛰️ 瑞士阿尔卑斯智能探险</h2>
+                <p>智能装备加持的阿尔卑斯探险之旅，天气预测、路线优化、安全监控全程保障</p>
+                <ul class="package-features">
+                    <li>智能登山装备租赁</li>
+                    <li>实时天气与路线优化</li>
+                    <li>无人机跟拍服务</li>
+                    <li>健康监测与预警</li>
+                    <li>高山摄影AI指导</li>
+                </ul>
+                <div class="package-price">¥12,888 起</div>
+                <a href="#book" class="btn">立即预订</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <h2>📧 联系我们</h2>
+            <div class="contact-form">
+                <div class="form-group">
+                    <label for="name">姓名</label>
+                    <input type="text" id="name" placeholder="请输入您的姓名">
+                </div>
+                <div class="form-group">
+                    <label for="email">邮箱</label>
+                    <input type="email" id="email" placeholder="请输入您的邮箱">
+                </div>
+                <div class="form-group">
+                    <label for="phone">电话</label>
+                    <input type="tel" id="phone" placeholder="请输入您的电话">
+                </div>
+                <div class="form-group">
+                    <label for="package">感兴趣的套餐</label>
+                    <select id="package">
+                        <option value="">请选择套餐</option>
+                        <option value="maldives">马尔代夫智能海岛游</option>
+                        <option value="japan">日本智慧文化行</option>
+                        <option value="swiss">瑞士阿尔卑斯智能探险</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">留言</label>
+                    <textarea id="message" placeholder="请告诉我们您的需求或问题"></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">提交咨询</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="contact-info">
+                <h3>联系我们</h3>
+                <p>📧 contact@smarttravel.com</p>
+                <p>📞 400-123-4567</p>
+                <p>📍 北京市朝阳区科技园区智能大厦</p>
+            </div>
+            <div class="social-links">
+                <a href="#">微信</a> | 
+                <a href="#">微博</a> | 
+                <a href="#">抖音</a>
+            </div>
+            <p style="margin-top: 20px; opacity: 0.8;">&copy; 2024 智游未来智能旅游. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 简单的表单提交交互
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('.contact-form');
+            const submitBtn = form.querySelector('.btn');
+            
+            submitBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                
+                if (!name || !email) {
+                    alert('请填写姓名和邮箱信息！');
+                    return;
+                }
+                
+                alert('感谢您的咨询！我们会尽快与您联系。');
+                form.reset();
+            });
+            
+            // 套餐卡片点击效果
+            const packages = document.querySelectorAll('.package');
+            packages.forEach(pkg => {
+                pkg.addEventListener('click', function() {
+                    const title = this.querySelector('h2').textContent;
+                    alert(`您选择了：${title}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
